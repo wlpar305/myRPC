@@ -6,12 +6,7 @@ public class VertxHttpServer implements HttpServer {
     public void doStart(int port) {
         Vertx vertx=Vertx.vertx();
         io.vertx.core.http.HttpServer server=vertx.createHttpServer();
-        server.requestHandler(requset->{
-            System.out.println("Received request:"+requset.method()+" "+requset.uri());
-            requset.response()
-                    .putHeader("content-type","text/plain")
-                    .end("Hello from Vert.x HTTP server!");
-        });
+        server.requestHandler(new HttpServerHandler());
         server.listen(port,result->{
             if(result.succeeded()){
                 System.out.println("Vert.x HTTP server started on port "+port);
