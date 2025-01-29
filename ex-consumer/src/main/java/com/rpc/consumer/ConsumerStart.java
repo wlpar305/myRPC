@@ -4,7 +4,7 @@ import com.rpc.common.model.User;
 import com.rpc.myrpc.proxy.ServiceProxyFactory;
 public class ConsumerStart {
     public static void main(String[] args) {
-        UserService userService=null;
+        UserService userService=ServiceProxyFactory.getProxy(UserService.class);
         User user=new User();
         user.setName("wlc");
         User newUser=userService.getUser(user);

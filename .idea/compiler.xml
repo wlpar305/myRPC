@@ -14,9 +14,12 @@
         <outputRelativeToContentRoot value="true" />
         <module name="ex-provider" />
         <module name="ex-common" />
-        <module name="test-rpc" />
+        <module name="core-rpc" />
         <module name="ex-consumer" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="test-rpc" target="21" />
+    </bytecodeTargetLevel>
   </component>
 </project>
