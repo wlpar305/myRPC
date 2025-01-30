@@ -9,7 +9,9 @@ public class ConsumerStart {
         user.setName("wlc");
         User newUser=userService.getUser(user);
         if(newUser!=null){
+            System.out.println("-----------");
             System.out.println(newUser.getName());
+            System.out.println("-----------");
         }else{
             System.out.println("user==null");
         }
