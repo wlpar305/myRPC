@@ -9,6 +9,6 @@ public class ProviderStart {
         RpcApplication.init();
         LocalRegistry.register(UserService.class.getName(),UserServiceImpl.class);
         HttpServer httpServer = new VertxHttpServer();
-        httpServer.doStart(RpcApplication.getRpcConfig().getSeverPort());
+        httpServer.doStart(RpcApplication.getRpcConfig().getServerPort());
     }
 }

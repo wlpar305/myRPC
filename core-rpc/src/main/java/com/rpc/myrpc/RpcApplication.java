@@ -1,6 +1,9 @@
 package com.rpc.myrpc;
+import com.rpc.myrpc.config.RegistryConfig;
 import com.rpc.myrpc.config.RpcConfig;
 import com.rpc.myrpc.constant.RpcConstant;
+import com.rpc.myrpc.registry.Registry;
+import com.rpc.myrpc.registry.RegistryFactory;
 import com.rpc.myrpc.utils.ConfigUtils;
 import lombok.extern.slf4j.Slf4j;
 @Slf4j
@@ -8,7 +11,11 @@ public class RpcApplication {
     private static volatile RpcConfig rpcConfig;
     public static void init(RpcConfig newRpcConfig) {
         rpcConfig = newRpcConfig;
-        log.info("RpcApplication init,config:{}", newRpcConfig.toString());
+        log.info("rpc init, config = {}", newRpcConfig.toString());
+        RegistryConfig registryConfig = rpcConfig.getRegistryConfig();
+        Registry registry = RegistryFactory.getInstance(registryConfig.getRegistry());
+        registry.init(registryConfig);
+        log.info("registry init, config = {}", registryConfig);
     }
     public static void init(){
         RpcConfig newRpcConfig;
