@@ -10,6 +10,7 @@ import com.rpc.myrpc.registry.Registry;
 import com.rpc.myrpc.registry.RegistryFactory;
 import com.rpc.myrpc.server.HttpServer;
 import com.rpc.myrpc.server.VertxHttpServer;
+import com.rpc.myrpc.server.tcp.VertxTcpServer;
 
 public class ProviderExample {
     public static void main(String[] args) {
@@ -28,7 +29,7 @@ public class ProviderExample {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        HttpServer httpServer = new VertxHttpServer();
-        httpServer.doStart(RpcApplication.getRpcConfig().getServerPort());
+        VertxTcpServer vertxTcpServer = new VertxTcpServer();
+        vertxTcpServer.doStart(8080);
     }
 }
