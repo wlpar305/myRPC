@@ -5,6 +5,8 @@ import cn.hutool.core.util.IdUtil;
 import com.rpc.myrpc.RpcApplication;
 import com.rpc.myrpc.config.RpcConfig;
 import com.rpc.myrpc.constant.RpcConstant;
+import com.rpc.myrpc.loadbalancer.LoadBalancer;
+import com.rpc.myrpc.loadbalancer.LoadBalancerFactory;
 import com.rpc.myrpc.model.RpcRequest;
 import com.rpc.myrpc.model.RpcResponse;
 import com.rpc.myrpc.model.ServiceMetaInfo;
@@ -16,7 +18,9 @@ import com.rpc.myrpc.server.tcp.VertxTcpClient;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ServiceProxy implements InvocationHandler {
     @Override
@@ -39,7 +43,10 @@ public class ServiceProxy implements InvocationHandler {
             if (CollUtil.isEmpty(serviceMetaInfoList)) {
                 throw new RuntimeException("暂无服务地址");
             }
-            ServiceMetaInfo selectedServiceMetaInfo = serviceMetaInfoList.get(0);
+            LoadBalancer loadBalancer = LoadBalancerFactory.getInstance(rpcConfig.getLoadBalancer());
+            Map<String, Object> requestParams = new HashMap<>();
+            requestParams.put("methodName", rpcRequest.getMethodName());
+            ServiceMetaInfo selectedServiceMetaInfo = loadBalancer.select(requestParams, serviceMetaInfoList);
             RpcResponse rpcResponse = VertxTcpClient.doRequest(rpcRequest, selectedServiceMetaInfo);
             return rpcResponse.getData();
         } catch (Exception e) {
