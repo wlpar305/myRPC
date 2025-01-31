@@ -1,14 +1,16 @@
 package com.rpc.provider;
-import com.rpc.myrpc.server.HttpServer;
-import com.rpc.myrpc.server.VertxHttpServer;
-import com.rpc.myrpc.registry.LocalRegistry;
+import com.rpc.myrpc.bootstrap.ProviderBootstrap;
+import com.rpc.myrpc.model.ServiceRegisterInfo;
 import com.rpc.common.service.UserService;
-import com.rpc.myrpc.RpcApplication;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class ProviderStart {
     public static void main(String[] args) {
-        RpcApplication.init();
-        LocalRegistry.register(UserService.class.getName(),UserServiceImpl.class);
-        HttpServer httpServer = new VertxHttpServer();
-        httpServer.doStart(RpcApplication.getRpcConfig().getServerPort());
+        List<ServiceRegisterInfo<?>> serviceRegisterInfoList = new ArrayList<>();
+        ServiceRegisterInfo serviceRegisterInfo = new ServiceRegisterInfo(UserService.class.getName(), UserServiceImpl.class);
+        serviceRegisterInfoList.add(serviceRegisterInfo);
+        ProviderBootstrap.init(serviceRegisterInfoList);
     }
 }
