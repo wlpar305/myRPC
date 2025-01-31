@@ -1,5 +1,6 @@
 package com.rpc.myrpc.config;
 import com.rpc.myrpc.fault.retry.RetryStrategyKeys;
+import com.rpc.myrpc.fault.tolerant.TolerantStrategyKeys;
 import com.rpc.myrpc.loadbalancer.LoadBalancerKeys;
 import com.rpc.myrpc.serializer.SerializerKeys;
 import lombok.Data;
@@ -14,4 +15,6 @@ public class RpcConfig {
     private RegistryConfig registryConfig = new RegistryConfig();
     private String loadBalancer = LoadBalancerKeys.ROUND_ROBIN;
     private String retryStrategy = RetryStrategyKeys.NO;
+    private String tolerantStrategy = TolerantStrategyKeys.FAIL_FAST;
 }
+

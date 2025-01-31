@@ -1,0 +1,4 @@
+failBack=com.rpc.myrpc.fault.tolerant.FailBackTolerantStrategy
+failFast=com.rpc.myrpc.fault.tolerant.FailFastTolerantStrategy
+failOver=com.rpc.myrpc.fault.tolerant.FailOverTolerantStrategy
+failSafe=com.rpc.myrpc.fault.tolerant.FailSafeTolerantStrategy
