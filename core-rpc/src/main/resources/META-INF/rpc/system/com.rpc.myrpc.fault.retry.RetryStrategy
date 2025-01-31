@@ -1,0 +1,2 @@
+no=com.rpc.myrpc.fault.retry.NoRetryStrategy
+fixedInterval=com.rpc.myrpc.fault.retry.FixedIntervalRetryStrategy
